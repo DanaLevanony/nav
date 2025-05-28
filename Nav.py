@@ -8,7 +8,6 @@ def get_nav_and_date(stock):
     options = webdriver.chrome.options.Options()
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument("--headless")
     options.add_argument("window-size=1400,900")
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-features=NetworkService")
