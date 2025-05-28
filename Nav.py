@@ -12,8 +12,8 @@ def get_nav_and_date(stock):
     #options.add_argument("--headless")  # Run in headless mode
     res = {'date': None, 'nav': None, 'previous close':None}
     driver = webdriver.Chrome(options=options)
-    driver.get("https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol={}".format(stock))
     try:
+        driver.get("https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol={}".format(stock))
         time.sleep(4)
         html = driver.page_source
         if len(html.split("Nav<")) > 1:
@@ -31,9 +31,8 @@ def get_nav_and_date(stock):
             print("Previous close, date:{}, value:{}".format(date, val))
 
     except Exception as e:
-        print(e)
-        print("Failed")
-        res['Status'] = 'Failed'
+        st.error(body='Selenium Exception occured!', icon='🔥')
+        st.error(body=str(e), icon='🔥')
     driver.quit()
     return res
 
