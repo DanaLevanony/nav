@@ -5,15 +5,14 @@ import json
 from selenium import webdriver
 
 def get_nav_and_date(stock):
-    #options = webdriver.chrome.options.Options()
-    #options.add_argument("--headless")  # Run in headless mode
+    options = webdriver.chrome.options.Options()
+    options.add_argument("--headless")  # Run in headless mode
     res = {'date': None, 'nav': None, 'previous close':None}
     driver = webdriver.Chrome()
     driver.get("https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol={}".format(stock))
     try:
-        time.sleep(9)
+        time.sleep(4)
         html = driver.page_source
-        print(html)
         if len(html.split("Nav<")) > 1:
             date = html.split("Nav<")[1].split("As of")[1][0:7]
             val = html.split("Nav<")[1].split("right ng-star-inserted")[1][2:].split("<")[0]
@@ -45,11 +44,12 @@ st.title(":rainbow[Hello 👋, this is our nav generator app]")
 #     """
 # )
 
-if st.button("Send balloons!"):
-    st.balloons()
+#if st.button("Send balloons!"):
+#    st.balloons()
 
-#res = get_nav_and_date('TQQQ')
-
+res = get_nav_and_date('TQQQ')
+st.write('TQQQ nav:')
+st.write(res['nav'], res['date'])
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = [{"role": "assistant", "content": "Let's start chatting! 👇"}]
@@ -68,4 +68,4 @@ if prompt := st.chat_input("Provide SYMBOL:"):
         st.markdown(prompt)
     print(prompt)
     res = get_nav_and_date(prompt)
-    st.write(res)
+    st.write(res['nav'], res['date'])
