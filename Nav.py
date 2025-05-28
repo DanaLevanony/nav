@@ -14,7 +14,7 @@ def get_nav_and_date(stock):
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument('--ignore-certificate-errors')
 
-    #options.add_argument("--headless")  # Run in headless mode
+    options.add_argument("--headless")  # Run in headless mode
     res = {'date': None, 'nav': None, 'previous close':None}
     try:
         driver = webdriver.Chrome(options=options)
