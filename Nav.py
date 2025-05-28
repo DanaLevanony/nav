@@ -7,9 +7,11 @@ from selenium import webdriver
 def get_nav_and_date(stock):
     options = webdriver.chrome.options.Options()
     options.add_argument('--no-sandbox')
-    options.add_argument("--headless")  # Run in headless mode
+    options.add_argument('--disable-dev-shm-usage')
+
+    #options.add_argument("--headless")  # Run in headless mode
     res = {'date': None, 'nav': None, 'previous close':None}
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
     driver.get("https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol={}".format(stock))
     try:
         time.sleep(4)
