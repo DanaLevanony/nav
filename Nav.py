@@ -3,6 +3,10 @@ import streamlit as st
 import time
 import json
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 def get_nav_and_date(stock):
     options = webdriver.chrome.options.Options()
@@ -20,6 +24,9 @@ def get_nav_and_date(stock):
         driver = webdriver.Chrome(options=options)
         driver.get("https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol={}".format(stock))
         time.sleep(4)
+        element = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".dynamic-content-class"))
+        )
         html = driver.page_source
         if len(html.split("Nav<")) > 1:
             date = html.split("Nav<")[1].split("As of")[1][0:7]
