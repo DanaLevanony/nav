@@ -1,2 +1,7 @@
 selenium
-chromium-browser
+bs4
+pillow
+requests
+psutil
+urllib3
+webdriver-manager
